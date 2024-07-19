@@ -1,6 +1,6 @@
 package client
 
-// Income 获取上市公司财务利润表数据
+// Income 获取上市公司财务利润表数据（单股票）
 func (api *TuShare) Income(params map[string]string, fields []string) (*APIResponse, error) {
 	// Check params
 	_, hasTsCode := params["ts_code"]
@@ -16,7 +16,24 @@ func (api *TuShare) Income(params map[string]string, fields []string) (*APIRespo
 	}
 
 	return api.postData(body)
+}
 
+// IncomeVip 获取上市公司财务利润表数据（全部上市公司）
+func (api *TuShare) IncomeVip(params map[string]string, fields []string) (*APIResponse, error) {
+	// Check params
+	//_, hasTsCode := params["ts_code"]
+	//if !hasTsCode {
+	//	return nil, ERR_ARGUEMENT
+	//}
+
+	body := map[string]interface{}{
+		"api_name": "income_vip",
+		"token":    api.token,
+		"params":   params,
+		"fields":   fields,
+	}
+
+	return api.postData(body)
 }
 
 // BalanceSheet 获取上市公司资产负债表
